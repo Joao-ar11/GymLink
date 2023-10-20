@@ -1,48 +1,122 @@
 import { useState } from "react";
-import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Image } from "react-native";
 import styles from "./styles";
 
 export default function FormularioAluno() {
   const [ nome, setNome ] = useState('');
   const [ sobreNome, setSobreNome ] = useState('');
   const [ data, setData ] = useState('');
+  const [ displayData, setDisplaydata ] = useState('');
+  const [ peso, setPeso ] = useState('');
+  const [ altura, setAltura ] = useState('');
+  const [ fisico, setFisico ] = useState('Escolha um físico');
+  const [ modal, setModal ] = useState(false);
   const [ email, setEmail ] = useState('');
   const [ senha, setSenha ] = useState('');
   const [ confirmarSenha, setConfirmarSenha ] = useState('');
 
-  function mudarNome(e) {
-    setNome(e.target.value);
+  function mudarNome(input) {
+    setNome(input);
   }
 
-  function mudarSobreNome(e) {
-    setSobreNome(e.target.value);
+  function mudarSobreNome(input) {
+    setSobreNome(input);
   }
 
-  function mudarData(e) {
-    setData(e.target.value);
+  function mudarData(input) {
+    const inputFiltrado = input.replaceAll('/', '');
+    let dataFormatada = '';
+    if (inputFiltrado.length > 2) {
+      dataFormatada += inputFiltrado.slice(0, 2) + '/' + inputFiltrado.slice(2, 4);
+    } else {
+      dataFormatada += input;
+    }
+
+    if (inputFiltrado.length > 4) {
+      dataFormatada += '/' + inputFiltrado.slice(4);
+    }
+
+    setDisplaydata(dataFormatada);
+    const dataValor = dataFormatada.split('/').reverse().join('-');
+    setData(new Date(dataValor));
   }
 
-  function mudarEmail(e) {
-    setEmail(e.target.value);
+  function mudarPeso(input) {
+    let inputFiltrado = '';
+    if (input.includes('kg') || input.length === 1) {
+      inputFiltrado = input.replace(' kg', '');
+    } else {
+      inputFiltrado = input.slice(0, -3)
+    }
+    if (inputFiltrado.length > 0) {
+      setPeso(inputFiltrado + ' kg');
+    } else {
+      setPeso('');
+    }
   }
 
-  function mudarSenha(e) {
-    setSenha(e.target.value);
+  function mudarAltura(input) {
+    let inputFiltrado = '';
+    if (input.includes('m') || input.length === 1) {
+      inputFiltrado = input.replace(' m', '');
+    } else {
+      inputFiltrado = input.slice(0, -2)
+    }
+    if (inputFiltrado.length > 0){
+      setAltura(inputFiltrado + ' m');
+    } else {
+      setAltura('');
+    }
   }
 
-  function mudarConfirmarSenha(e) {
-    setConfirmarSenha(e.target.value);
+  function abrirModal() {
+    setModal(!modal);
+  }
+
+  function mudarFisico(novoFisico) {
+    setFisico(novoFisico);
+    setModal(false);
+  }
+
+  function mudarEmail(input) {
+    setEmail(input);
+  }
+
+  function mudarSenha(input) {
+    setSenha(input);
+  }
+
+  function mudarConfirmarSenha(input) {
+    {setConfirmarSenha(inputFiltrado);}
   }
 
   return (<KeyboardAvoidingView style={styles.container} behavior="padding">
-      <View style={styles.nomeContainer}>
-        <TextInput style={{ ...styles.input, ...styles.inputNome }} placeholder='Nome' value={nome} onChange={mudarNome}/>
-        <TextInput style={{ ...styles.input, ...styles.inputSobreNome }} placeholder='Sobrenome' value={sobreNome} onChange={mudarSobreNome}/>
+      <View style={styles.containerDividido}>
+        <TextInput style={{ ...styles.input, ...styles.inputNome }} placeholder='Nome' value={nome} onChangeText={mudarNome}/>
+        <TextInput style={{ ...styles.input, ...styles.inputSobreNome }} placeholder='Sobrenome' value={sobreNome} onChangeText={mudarSobreNome}/>
       </View>
-      <TextInput style={styles.input} placeholder="Data de nascimento" value={data} onChange={mudarData}/>
-      <TextInput style={styles.input} placeholder="Email" value={email} onChange={mudarEmail}/>
-      <TextInput style={styles.input} secureTextEntry={true} placeholder="Senha" value={senha} onChange={mudarSenha}/>
-      <TextInput style={styles.input} secureTextEntry={true} placeholder="Confirmar Senha" value={confirmarSenha} onChange={mudarConfirmarSenha}/>
+      <View style={styles.containerDividido}>
+        <TextInput style={ {...styles.input, ...styles.inputMeio }} keyboardType="numeric" placeholder="Data de nascimento" value={displayData} maxLength={10} onChangeText={mudarData}/>
+        <TextInput selection={{start: peso.length - 3, end: peso.length - 3}} style={ {...styles.input, ...styles.inputMeio }} keyboardType="numeric" placeholder="Peso" value={peso} maxLength={9} onChangeText={mudarPeso}/>
+      </View>
+      <View style={styles.containerDividido}>
+        <TextInput selection={{start: altura.length - 2, end: altura.length - 2}} style={ {...styles.input, ...styles.inputMeio }} keyboardType="numeric" placeholder="Altura" value={altura} maxLength={6} onChangeText={mudarAltura}/>
+        <View style={{ ...styles.input, ...styles.inputMeio, ...styles.selectContainer}}>
+          { modal ? <View style={styles.select}>
+            <Text>Escolha um físico</Text>
+            <TouchableOpacity style={styles.option} onPress={() => mudarFisico('Abaixo do peso')}><Text>Abaixo do peso</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.option} onPress={() => mudarFisico('Saudável')}><Text>Saudável</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.option} onPress={() => mudarFisico('Acima do peso')}><Text>Acima do peso</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.option} onPress={() => mudarFisico('Obeso')}><Text>Obeso</Text></TouchableOpacity>
+          </View> : <Text>{fisico}</Text>}
+          <TouchableOpacity style={styles.expand} onPress={abrirModal}>
+            <Image source={ require('../../../../assets/expand.png') }/>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={mudarEmail}/>
+      <TextInput style={styles.input} secureTextEntry={true} placeholder="Senha" value={senha} onChangeText={mudarSenha}/>
+      <TextInput style={styles.input} secureTextEntry={true} placeholder="Confirmar Senha" value={confirmarSenha} onChangeText={mudarConfirmarSenha}/>
 
     <TouchableOpacity style={styles.botao}>
       <Text style={styles.botaoTexto}>Registrar</Text>
