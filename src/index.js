@@ -4,14 +4,15 @@ import Registro from './components/Registro';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    alignSelf: 'stretch',
+    backgroundColor: '#ffffff',
   },
 });
 
 export default function Index() {
   return (
-    <ScrollView style={styles.container}>
-      <Registro tipo="aluno" />
+    <ScrollView style={styles.container} keyboardShouldPersistTaps='handled'>
+      <Registro tipo="personal" />
     </ScrollView>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Image, Pressable } from "react-native";
-import styles from "./styles";
+import styles from "../styles";
 
 export default function FormularioAluno() {
   const [ nome, setNome ] = useState('');
@@ -11,6 +11,7 @@ export default function FormularioAluno() {
   const [ altura, setAltura ] = useState('');
   const [ fisico, setFisico ] = useState('Tipo físico');
   const [ modal, setModal ] = useState(false);
+  const [ telefone, setTelefone ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ senha, setSenha ] = useState('');
   const [ confirmarSenha, setConfirmarSenha ] = useState('');
@@ -29,7 +30,7 @@ export default function FormularioAluno() {
     if (inputFiltrado.length > 2) {
       dataFormatada += inputFiltrado.slice(0, 2) + '/' + inputFiltrado.slice(2, 4);
     } else {
-      dataFormatada += input;
+      dataFormatada += inputFiltrado;
     }
 
     if (inputFiltrado.length > 4) {
@@ -78,6 +79,10 @@ export default function FormularioAluno() {
     setModal(false);
   }
 
+  function mudarTelefone(input) {
+    setTelefone(input);
+  }
+
   function mudarEmail(input) {
     setEmail(input);
   }
@@ -87,10 +92,11 @@ export default function FormularioAluno() {
   }
 
   function mudarConfirmarSenha(input) {
-    {setConfirmarSenha(inputFiltrado);}
+    {setConfirmarSenha(input);}
   }
 
-  return (<View style={styles.container} behavior="padding">
+  return (
+    <View style={styles.formulario}>
       <View style={styles.containerDividido}>
         <TextInput style={{ ...styles.input, ...styles.inputMeio }} placeholder='Nome' value={nome} onChangeText={mudarNome}/>
         <TextInput style={{ ...styles.input, ...styles.inputMeio }} placeholder='Sobrenome' value={sobreNome} onChangeText={mudarSobreNome}/>
@@ -114,15 +120,16 @@ export default function FormularioAluno() {
           </TouchableOpacity>
         </Pressable>
       </View>
+      <TextInput style={styles.input} placeholder="Telefone" value={telefone} onChangeText={mudarTelefone}/>
       <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={mudarEmail}/>
       <TextInput style={styles.input} secureTextEntry={true} placeholder="Senha" value={senha} onChangeText={mudarSenha}/>
       <KeyboardAvoidingView style={{width: '100%'}}behavior="padding">
         <TextInput style={styles.input} secureTextEntry={true} placeholder="Confirmar Senha" value={confirmarSenha} onChangeText={mudarConfirmarSenha}/>
       </KeyboardAvoidingView>
-
-    <TouchableOpacity style={styles.botao}>
-      <Text style={styles.botaoTexto}>Registrar</Text>
-    </TouchableOpacity>
-    <Text style={styles.textoLogin}>Já possui uma conta? <Text style={styles.linkLogin}>Clique aqui!</Text></Text>
-  </View>);
+      <TouchableOpacity style={styles.botao}>
+        <Text style={styles.botaoTexto}>Registrar</Text>
+      </TouchableOpacity>
+      <Text style={styles.textoConta}>Já possui uma conta? <Text style={styles.link}>Clique aqui!</Text></Text>
+    </View>
+  );
 }
