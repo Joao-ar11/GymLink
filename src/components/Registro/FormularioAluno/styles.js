@@ -26,16 +26,8 @@ export default styles = StyleSheet.create({
     borderRadius: 10
   },
 
-  inputNome: {
-    width: "35%"
-  },
-
-  inputSobreNome: {
-    width: "60%"
-  },
-
   inputMeio: {
-    width: "47.5%"
+    width: "49%"
   },
 
   selectContainer: {
@@ -43,6 +35,9 @@ export default styles = StyleSheet.create({
     right: 0,
     top: -5,
     paddingRight: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    minHeight: 45,
     height: 'auto',
     backgroundColor: '#FFFFFF',
     flexDirection: "row",
@@ -59,13 +54,15 @@ export default styles = StyleSheet.create({
   },
 
   select: {
-    gap: 10
+    width: '100%',
   },
 
   option: {
+    paddingLeft: 10,
     width: '100%',
-    height: 20,
-    backgroundColor: '#FFFFFF'
+    height: 30,
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center'
   },
 
   botao: {
