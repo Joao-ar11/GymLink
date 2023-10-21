@@ -5,7 +5,8 @@ export default styles = StyleSheet.create({
     paddingTop: 70,
     flex: 1,
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF'
   },
 
   title: {

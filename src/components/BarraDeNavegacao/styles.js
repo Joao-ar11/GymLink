@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 export default styles = StyleSheet.create({
 
   barra: {
-    marginTop: 500,
     flexDirection: 'row',
     padding: 20,
     width: '100%',
@@ -30,7 +29,7 @@ export default styles = StyleSheet.create({
 
   botaoPrincipal: {
     position: "relative",
-    top: -25,
+    top: -15,
     height: 60,
     overflow: 'hidden',
     borderWidth: 5,

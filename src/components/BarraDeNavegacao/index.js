@@ -1,7 +1,7 @@
 import { View, TouchableOpacity, Image } from "react-native";
 import styles from "./styles";
 
-export default function NavegacaoInferior() {
+export default function NavBar({ navigation }) {
   return(
     <View style={styles.barra}>
       <View>

@@ -4,7 +4,6 @@ import styles from '../styles';
 
 export default function FormularioPersonal() {
   const [ nome, setNome ] = useState('');
-  const [ sobreNome, setSobreNome ] = useState('');
   const [ data, setData ] = useState('');
   const [ displayData, setDisplaydata ] = useState('');
   const [ cref, setCref ] = useState('');
@@ -15,10 +14,6 @@ export default function FormularioPersonal() {
 
   function mudarNome(input) {
     setNome(input);
-  }
-
-  function mudarSobreNome(input) {
-    setSobreNome(input);
   }
 
   function mudarData(input) {
@@ -61,10 +56,7 @@ export default function FormularioPersonal() {
 
   return (
     <View style={styles.formulario}>
-      <View style={styles.containerDividido}>
-        <TextInput style={{ ...styles.input, ...styles.inputMeio }} placeholder='Nome' value={nome} onChangeText={mudarNome}/>
-        <TextInput style={{ ...styles.input, ...styles.inputMeio }} placeholder='Sobrenome' value={sobreNome} onChangeText={mudarSobreNome}/>
-      </View>
+      <TextInput style={styles.input} placeholder='Nome Completo' value={nome} onChangeText={mudarNome}/>
       <View style={styles.containerDividido}>
         <TextInput style={ {...styles.input, ...styles.inputMeio }} keyboardType="numeric" placeholder="Data de nascimento" value={displayData} maxLength={10} onChangeText={mudarData}/>
         <TextInput style={{ ...styles.input, ...styles.inputMeio }} placeholder='CREF' value={cref} onChangeText={mudarCref}/>
