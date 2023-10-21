@@ -1,4 +1,5 @@
 import { StyleSheet, ScrollView } from 'react-native';
+import NavegacaoInferior from './components/NavegacaoInferior';
 import Registro from './components/Registro';
 import Login from './components/Login';
 
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
 export default function Index() {
   return (
     <ScrollView style={styles.container} keyboardShouldPersistTaps='handled'>
-      <Login />
+      <NavegacaoInferior />
     </ScrollView>
   );
 }
