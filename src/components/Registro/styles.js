@@ -80,6 +80,7 @@ export default styles = StyleSheet.create({
 
   botao: {
     marginTop: 20,
+    marginBottom: 15,
     width: "100%",
     height: 45,
     backgroundColor: "#4736C6",
@@ -94,14 +95,20 @@ export default styles = StyleSheet.create({
     color: "#FFFFFF"
   },
 
+  loginContainer: {
+    flexDirection: 'row',
+    gap: 5,
+    alignItems: 'center'
+  },
+
   textoConta: {
-    marginTop: 50,
     fontSize: 14,
-    fontWeight: "600",
-    color: "#8C8C8C"
+    fontWeight: '400',
   },
 
   link: {
+    fontSize: 16,
+    fontWeight: '900',
     color: "#382D85",
     textDecorationLine: "underline"
   }

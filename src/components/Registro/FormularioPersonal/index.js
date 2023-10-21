@@ -78,7 +78,10 @@ export default function FormularioPersonal() {
       <TouchableOpacity style={styles.botao}>
         <Text style={styles.botaoTexto}>Registrar</Text>
       </TouchableOpacity>
-      <Text style={styles.textoConta}>Já possui uma conta? <Text style={styles.link}>Clique aqui!</Text></Text>
+      <View style={styles.loginContainer}>
+        <Text style={styles.textoConta}>Já possui uma conta?</Text>
+        <TouchableOpacity><Text style={styles.link}>Clique aqui!</Text></TouchableOpacity>
+      </View>
     </View>
   );
 }
