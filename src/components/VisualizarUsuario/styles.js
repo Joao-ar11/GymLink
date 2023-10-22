@@ -4,6 +4,7 @@ export default styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 10,
+    paddingBottom: 25,
     width: '100%',
     backgroundColor: '#FFFFFF',
     alignItems: 'center'
@@ -26,7 +27,8 @@ export default styles = StyleSheet.create({
     fontWeight: '700'
   },
 
-  objetivo: {
+  descricao: {
+    maxWidth: '90%',
     fontSize: 16,
     fontWeight: '400'
   },

@@ -6,7 +6,7 @@ export default function NavBar({ navigation }) {
     <View style={styles.barra}>
       <View>
         <TouchableOpacity>
-          <Image style={styles.icone} source={require('../../../assets/home.png')}/>
+          <Image style={styles.icone} source={require('../../../assets/bell.png')}/>
         </TouchableOpacity>
       </View>
 
