@@ -11,7 +11,7 @@ export default function NavBar({ navigation }) {
       </View>
 
       <View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('TabTreinos')}>
           <Image style={styles.icone} source={require('../../../assets/dumbbell.png')}/>
         </TouchableOpacity>
       </View>

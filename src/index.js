@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import NavBar from './routes/NavBar';
+import NavBar from './routes/Main/NavBar';
 import Registro from './components/Registro';
 import Login from './components/Login';
 
