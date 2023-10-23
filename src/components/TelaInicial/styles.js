@@ -34,7 +34,7 @@ export default styles = StyleSheet.create({
   },
 
   texto: {
-    fontsize: 15,
+    fontSize: 15,
     fontWeight: '400'
   },
 

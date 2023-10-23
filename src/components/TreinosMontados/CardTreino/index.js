@@ -5,11 +5,21 @@ import styles from "./styles";
 export default function CardTreino(props) {
   const icone = props.item.fotoTreino;
   const foto = props.item.fotoInstrutor;
+
+  function selecionarTreino() {
+    props.navigation.navigate({
+      name: 'Rotinas',
+      screen: 'Rotinas',
+      params: {
+        id: props.item.id
+      }
+    });
+  }
   
   return(
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={selecionarTreino}>
       <View style={styles.head}>
-        <View style={styles.iconeContainer}>
+        <View>
           <Image style={styles.icone} source={{uri: icone}}/>
         </View>
         <Text style={styles.treinoNome}>{props.item.nome}</Text>
@@ -24,7 +34,7 @@ export default function CardTreino(props) {
           <Text style={styles.nomeInstrutor}>{props.item.instrutor}</Text>
           <Text style={styles.nomeInstrutor}>Instrutor</Text>
         </View>
-        <TouchableOpacity style={styles.botao}><Text style={styles.botaoTexto}>Iniciar</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.botao} onPress={selecionarTreino}><Text style={styles.botaoTexto}>Iniciar</Text></TouchableOpacity>
       </View>
     </TouchableOpacity>
   );

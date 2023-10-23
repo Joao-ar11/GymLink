@@ -17,7 +17,7 @@ export default function NavBar({ navigation }) {
       </View>
 
       <View style={styles.botaoPrincipal}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Inicio')}>
           <Image style={styles.iconePrincipal} source={require('../../../assets/botaoLogo.png')}/>
         </TouchableOpacity>
       </View>
