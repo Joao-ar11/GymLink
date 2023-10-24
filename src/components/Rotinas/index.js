@@ -86,6 +86,7 @@ export default function Rotinas({ route, navigation }) {
           data={rotinas}
           contentContainerStyle={{alignItems: 'center', width: '100%', paddingBottom: 40}}
           renderItem={({ item }) => <CardRotina item={item} navigation={navigation}/>}
+          keyExtractor={(item) => item.id}
         />
       </View>
     </View>

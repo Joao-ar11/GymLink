@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Logo from '../../../../components/Header/Logo'
 import TreinosMontados from "../../../../components/TreinosMontados";
 import Rotinas from "../../../../components/Rotinas";
+import ExerciciosAluno from "../../../../components/ExerciciosAluno";
 
 const Stack = createNativeStackNavigator()
 
@@ -16,6 +17,7 @@ export default function Treinos() {
       }}>
         <Stack.Screen name='Treinos' component={TreinosMontados}/>
         <Stack.Screen name='Rotinas' component={Rotinas} />
+        <Stack.Screen name='ExerciciosAluno' component={ExerciciosAluno}/>
       </Stack.Navigator>
   );
 }

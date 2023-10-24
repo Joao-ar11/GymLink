@@ -2,8 +2,19 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import styles from "./styles";
 
 export default function CardRotina(props) {
+
+  function selecionarRotina() {
+    props.navigation.navigate({
+      name: 'ExerciciosAluno',
+      screen: 'ExerciciosAluno',
+      params: {
+        id: props.item.id
+      }
+    });
+  }
+
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity onPress={selecionarRotina} style={styles.container}>
       <View>
         <Image style={styles.foto} source={{uri: props.item.foto}}/>
       </View>
