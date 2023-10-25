@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import BarraDeNavegacao from "../../../components/BarraDeNavegacao";
 import Logo from "../../../components/Header/Logo";
-import TelaInicial from "../../../components/TelaInicial";
+import Inicio from "../Stacks/Inicio";
 import Treinos from "../Stacks/Treinos";
 import Vinculos from "../Stacks/Vinculos";
 
@@ -13,14 +13,8 @@ export default function NavBar() {
     <NavigationContainer>
       <Tab.Navigator tabBar={BarraDeNavegacao} screenOptions={{tabBarHideOnKeyboard: true}}>
         <Tab.Screen name='Inicio'
-          component={TelaInicial}
-          options={{
-            headerTitle: Logo,
-            headerTitleAlign: 'center'
-          }}
-          initialParams={{
-            tipo: 'aluno'
-          }}
+          component={Inicio}
+          options={{headerShown: false}}
         />
         <Tab.Screen name='TabTreinos'
           component={Treinos}

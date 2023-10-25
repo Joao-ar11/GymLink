@@ -7,7 +7,7 @@ export default function TelaInicial({ route, navigation }) {
     <ScrollView contentContainerStyle={{flex: 1, width: '100%', backgroundColor: '#FFFFFF'}}>
       {
         route.params.tipo === 'aluno' ?
-        <InicioAluno /> :
+        <InicioAluno navigation={navigation}/> :
         <InicioPersonal />
       }
     </ScrollView>
