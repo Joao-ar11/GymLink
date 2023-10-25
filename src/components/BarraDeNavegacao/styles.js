@@ -17,6 +17,11 @@ export default styles = StyleSheet.create({
     zIndex: 20
   },
 
+  botao: {
+    flex: 1,
+    alignItems: 'center'
+  },
+
   icone: {
     width: 25,
     height: 25

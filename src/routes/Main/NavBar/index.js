@@ -4,6 +4,7 @@ import BarraDeNavegacao from "../../../components/BarraDeNavegacao";
 import Logo from "../../../components/Header/Logo";
 import TelaInicial from "../../../components/TelaInicial";
 import Treinos from "../Stacks/Treinos";
+import Vinculos from "../Stacks/Vinculos";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,6 +24,10 @@ export default function NavBar() {
         />
         <Tab.Screen name='TabTreinos'
           component={Treinos}
+          options={{headerShown: false}}
+        />
+        <Tab.Screen name='TabVinculos'
+          component={Vinculos}
           options={{headerShown: false}}
         />
       </Tab.Navigator>

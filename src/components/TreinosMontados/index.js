@@ -20,7 +20,7 @@ export default function TreinosMontados({ route, navigation }) {
       fotoInstrutor: 'https://aodisseia.b-cdn.net/wp-content/uploads/2023/07/Baki-Hanma-2a-temporada-anime-netflix-01-768x432.jpg',
       fotoTreino: 'https://img.icons8.com/ios-filled/50/pullups.png'
     }
-  ]
+  ];
 
   return(
     <View style={styles.container}>
