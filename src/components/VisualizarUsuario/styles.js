@@ -11,6 +11,7 @@ export default styles = StyleSheet.create({
   },
 
   fotoContainer: {
+    margin: 20,
     width: 175,
     height: 175,
     borderRadius: 92.5,

@@ -6,14 +6,16 @@ export default function ListaPersonais(props) {
       id: '1',
       nome: 'Machio Naruzo - Musculação',
       descricao: 'Tonificar ou ganhar massa? Estou aqui. Treino de musculação focado em fortalecer e tonificar, combinando exercícios compostos e isolados para máximo ganho e definição.',
-      foto: 'https://cdn.anisearch.com/images/character/cover/84/84936_300.webp'
+      foto: 'https://cdn.anisearch.com/images/character/cover/84/84936_300.webp',
+      tipo: 'personal'
     },
 
     {
       id: '2',
       nome: 'Baki Hanma - Calistenia',
       descricao: 'Força e flexibilidade usando o corpo. 🌟 "Treino de calistenia com o instrutor Baki Hanma: desafie seu corpo usando o próprio peso, aprimorando força, agilidade e equilíbrio. 💪🌆 #CalisteniaComBaki"',
-      foto: 'https://aodisseia.b-cdn.net/wp-content/uploads/2023/07/Baki-Hanma-2a-temporada-anime-netflix-01-768x432.jpg'
+      foto: 'https://aodisseia.b-cdn.net/wp-content/uploads/2023/07/Baki-Hanma-2a-temporada-anime-netflix-01-768x432.jpg',
+      tipo: 'personal'
     }
   ];
 

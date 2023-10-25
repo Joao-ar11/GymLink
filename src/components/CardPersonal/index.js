@@ -3,8 +3,18 @@ import styles from "./styles";
 
 export default function CardPersonal(props) {
 
+  function selecionarUsuario() {
+    props.navigation.navigate({
+      name: 'VisualizarUsuario',
+      screen: 'VisualizarUsuario',
+      params: {
+        item: props.item
+      }
+    });
+  }
+
   return(
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={selecionarUsuario}>
       <View style={styles.imagemContainer}>
         <Image style={styles.foto} source={{ uri: props.item.foto }}/>
       </View>

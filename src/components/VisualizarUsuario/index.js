@@ -6,8 +6,8 @@ export default function VisualizarUsuario({ route, navigation }){
   return (
     <ScrollView style={{ flex: 1, width: '100%', backgroundColor: '#FFFFFF'}}>
       {
-        route.params.tipo === 'personal' ?
-        <VisualilzarPersonal /> :
+        route.params.item.tipo === 'personal' ?
+        <VisualilzarPersonal item={route.params.item}/> :
         <VisualilzarAluno />
       }
     </ScrollView>
