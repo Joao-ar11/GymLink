@@ -4,8 +4,15 @@ import styles from "../styles";
 
 export default function VisualilzarAluno() {
 
+  const [ modalDenuncia, setModalDenuncia ] = useState(false);
+
+  function modal() {
+    setModalDenuncia(!modalDenuncia);
+  }
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={modal} style={styles.botaoDenuncia}><Image style={styles.imagemDenuncia} source={require('../../../../assets/flag.png')}/></TouchableOpacity>
       <View style={styles.fotoContainer}>
         <Image style={styles.foto} source={require('../../../../assets/user.png')}/>
       </View>
@@ -28,6 +35,10 @@ export default function VisualilzarAluno() {
       <View style={styles.graficoContainer}>
         <Image style={styles.grafico} source={require('../../../../assets/grafico.jpg')}/>
       </View>
+      { modalDenuncia ?
+          <Denuncia id={props.item.id} tipo={props.item.tipo} fecharModal={modal}/>
+          : <></>
+      }
     </View>
   );
 }
