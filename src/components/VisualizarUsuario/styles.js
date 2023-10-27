@@ -4,10 +4,22 @@ export default styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 10,
-    paddingBottom: 25,
     width: '100%',
     backgroundColor: '#FFFFFF',
     alignItems: 'center'
+  },
+
+  botaoDenuncia: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 27,
+    height: 27
+  },
+
+  imagemDenuncia: {
+    width: 27,
+    height: 27
   },
 
   fotoContainer: {
