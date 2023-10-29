@@ -59,7 +59,7 @@ export default function ExerciciosAluno({ route, navigation }) {
       <Text style={styles.titulo}>Lista de Exercicios</Text>
       <FlatList 
         data={exercicios}
-        renderItem={({ item }) => <CardExercicio item={item}/>}
+        renderItem={({ item }) => <CardExercicio item={item} navigation={navigation}/>}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{
           width: '100%',

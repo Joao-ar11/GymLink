@@ -9,6 +9,16 @@ export default function CardExercicio(props) {
     setConcluido(!concluido);
   }
 
+  function mudarExercicio() {
+    props.navigation.navigate({
+      name: 'TrocaExercicio',
+      screen: 'TrocaExercicio',
+      initialParams: {
+        id: props.item.id
+      }
+    })
+  }
+
   return(
     <TouchableOpacity style={styles.container}>
       <View style={styles.imagemContainer}>
@@ -19,7 +29,7 @@ export default function CardExercicio(props) {
       <TouchableOpacity onPress={mudarConcluido} style={styles.check}>
         {concluido ? <Image style={styles.concluido} source={require('../../../assets/check.png')}/> : <></>}
       </TouchableOpacity>
-      <TouchableOpacity style={styles.mudarExercicio}>
+      <TouchableOpacity style={styles.mudarExercicio} onPress={mudarExercicio}>
         <Image style={styles.mudarImagem} source={require('../../../assets/mudar.png')}/>
       </TouchableOpacity>
     </TouchableOpacity>
