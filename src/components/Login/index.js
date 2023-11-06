@@ -41,20 +41,20 @@ export default function Login({ navigation }) {
   return(
     <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps='never'>
       <Image style={styles.logo} source={require('../../../assets/GymLinkNomeELogo.png')}/>
-      <View style={{width: '100%', marginTop: 150}}>
+      <KeyboardAvoidingView style={{width: '100%', marginTop: 150}} behavior="padding">
         <View style={styles.inputContainer}>
           <Image source={require('../../../assets/account.png')} style={styles.inputIcon}/>
           <TextInput placeholder="Email" value={email} onChangeText={setEmail} style={styles.input} autoCapitalize="none" keyboardType="email-address" returnKeyType="next" onSubmitEditing={() => {this.input2.focus()}} blurOnSubmit={false}/>
         </View>
-        <KeyboardAvoidingView style={styles.inputContainer} behavior="padding">
+        <View style={styles.inputContainer} behavior="padding">
           <Image source={require('../../../assets/lock.png')} style={styles.inputIcon}/>
           <TextInput ref={(input) => {this.input2 = input}} secureTextEntry={ocultarSenha} placeholder="Senha" value={senha} onChangeText={setSenha} style={styles.input} autoCapitalize="none" onSubmitEditing={logar}/>
           <TouchableOpacity onPress={() => setOcultarSenha(!ocultarSenha)} style={styles.mostrarSenha}>{ ocultarSenha ? 
             <Image source={require('../../../assets/eye-off-outline.png')}/> :
             <Image source={require('../../../assets/eye-outline.png')}/> 
           }</TouchableOpacity>
-        </KeyboardAvoidingView> 
-      </View>
+        </View> 
+      </KeyboardAvoidingView>
       {erro ? <Erro erro={erro}/> : <></>}
       <TouchableOpacity style={styles.esqueceuSenha}><Text>Esqueceu a senha?</Text></TouchableOpacity>
       <TouchableOpacity style={styles.botaoLogin} onPress={logar}><Text style={styles.textoLogin}>Login</Text></TouchableOpacity>

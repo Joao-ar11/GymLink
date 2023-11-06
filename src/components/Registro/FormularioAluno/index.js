@@ -1,8 +1,9 @@
 import { useState, useContext } from "react";
-import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView } from "react-native";
-import { auth, db } from "../../../firebase/firebase";
+import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Image } from "react-native";
+import { auth, db, storage } from "../../../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Timestamp, addDoc, collection, getDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Erro from '../Erro';
 import styles from "../styles";
 import User from "../../User";
@@ -29,6 +30,8 @@ export default function FormularioAluno(props) {
 
   const colecao = collection(db, 'users');
   const usuario = useContext(User);
+  const imagem = require('../../../../assets/user.png');
+  const imagemUri = Image.resolveAssetSource(imagem).uri;
 
   function mudarNome(input) {
     setNome(input);
@@ -142,19 +145,38 @@ export default function FormularioAluno(props) {
   async function enviarFormulario() {
     props.carregar(true);
     createUserWithEmailAndPassword(auth, email, senha)
-    .then((Usercredential) =>
-      {
-        return addDoc(colecao, {
+    .then((Usercredential) => {
+      const novoNome = 'usuarios/' + Date.now() + Math.ceil(Math.random() * 1000) + '.png';
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+          resolve(xhr.response);
+        };
+        
+        xhr.onerror = function() {
+          reject(new Error('uriToBlob failed'));
+        };
+        xhr.responseType = 'blob';
+        xhr.open('GET', imagemUri, true);
+        xhr.send(null);
+      })
+        .then((blob) => uploadBytes(ref(storage, novoNome), blob))
+        .then(() => {
+          const r = ref(storage, novoNome);
+          return getDownloadURL(r)
+        })
+        .then((linkFoto) => addDoc(colecao, {
           nome,
           altura,
           peso,
           telefone,
           email,
           descricao: '',
-          foto: 'https://firebasestorage.googleapis.com/v0/b/gym-link-4e8d0.appspot.com/o/usuarios%2Fuser.png?alt=media&token=e6c502a8-3cb3-4364-a184-ad3ab6fb4d71',
+          foto: linkFoto,
           data: Timestamp.fromDate(data),
           uid : Usercredential.user.uid
-        });
+        }))
+        .catch((error) => new Promise.reject(error));
       }
     )
     .then(doc => getDoc(doc))
@@ -170,27 +192,27 @@ export default function FormularioAluno(props) {
 
   return (
     <View style={styles.formulario}>
-      <TextInput style={styles.input} placeholder='Nome Completo' value={nome} onChangeText={mudarNome}/>
+      <TextInput style={styles.input} placeholder='Nome Completo' value={nome} onChangeText={mudarNome} returnKeyType="next" onSubmitEditing={() => {this.input2.focus()}} blurOnSubmit={false}/>
       { erroNome ? <Erro erro={erroNome} /> : <></>}
       <View style={styles.containerDividido}>
-        <TextInput selection={{start: altura.length - 2, end: altura.length - 2}} style={ {...styles.input, ...styles.inputMeio }} keyboardType="numeric" placeholder="Altura" value={altura} maxLength={6} onChangeText={mudarAltura}/>
-        <TextInput selection={{start: peso.length - 3, end: peso.length - 3}} style={ {...styles.input, ...styles.inputMeio }} keyboardType="numeric" placeholder="Peso" value={peso} maxLength={9} onChangeText={mudarPeso}/>
+        <TextInput selection={{start: altura.length - 2, end: altura.length - 2}} style={ {...styles.input, ...styles.inputMeio }} ref={(input) => {this.input2 = input}} keyboardType="numeric" placeholder="Altura" value={altura} maxLength={6} onChangeText={mudarAltura} returnKeyType="next" onSubmitEditing={() => {this.input3.focus()}} blurOnSubmit={false}/>
+        <TextInput selection={{start: peso.length - 3, end: peso.length - 3}} style={ {...styles.input, ...styles.inputMeio }} keyboardType="numeric" placeholder="Peso" value={peso} maxLength={9} onChangeText={mudarPeso} returnKeyType="next" ref={(input) => {this.input3 = input}} onSubmitEditing={() => {this.input4.focus()}} blurOnSubmit={false}/>
       </View>
       <View style={styles.containerDividido}>
         {erroAltura ? <Erro erro={erroAltura} /> : <View/>}
         {erroPeso ? <Erro erro={erroPeso} /> : <View/>}
       </View>
-      <TextInput style={styles.input} keyboardType="numeric" placeholder="Data de nascimento" value={displayData} maxLength={10} onChangeText={mudarData}/>
+      <TextInput style={styles.input} keyboardType="numeric" placeholder="Data de nascimento" value={displayData} maxLength={10} onChangeText={mudarData} returnKeyType="next" ref={(input) => {this.input4 = input}} onSubmitEditing={() => {this.input5.focus()}} blurOnSubmit={false}/>
       {erroData ? <Erro erro={erroData} /> : <></>}
-      <TextInput style={styles.input} placeholder="Telefone" value={telefone} onChangeText={mudarTelefone} keyboardType="phone-pad"/>
+      <TextInput style={styles.input} placeholder="Telefone" value={telefone} onChangeText={mudarTelefone} keyboardType="phone-pad" returnKeyType="next" ref={(input) => {this.input5 = input}} onSubmitEditing={() => {this.input6.focus()}} blurOnSubmit={false}/>
       {erroTelefone ? <Erro erro={erroTelefone} /> : <></>}
-      <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={mudarEmail} keyboardType="email-address" autoCapitalize="none"/>
+      <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={mudarEmail} keyboardType="email-address" autoCapitalize="none" returnKeyType="next" ref={(input) => {this.input6 = input}} onSubmitEditing={() => {this.input7.focus()}} blurOnSubmit={false}/>
       {erroEmail ? <Erro erro={erroEmail} /> : <></>}
-      <TextInput style={styles.input} secureTextEntry={true} placeholder="Senha" value={senha} onChangeText={mudarSenha} autoCapitalize="none"/>
+      <TextInput style={styles.input} secureTextEntry={true} placeholder="Senha" value={senha} onChangeText={mudarSenha} autoCapitalize="none" returnKeyType="next" ref={(input) => {this.input7 = input}} onSubmitEditing={() => {this.input8.focus()}} blurOnSubmit={false}/>
       {erroSenha ? <Erro erro={erroSenha} /> : <></>}
-      <KeyboardAvoidingView style={{width: '100%'}}behavior="padding">
-        <TextInput style={styles.input} secureTextEntry={true} placeholder="Confirmar Senha" value={confirmarSenha} onChangeText={mudarConfirmarSenha} autoCapitalize="none"/>
-        {erroConfirmarSenha ? <Erro erro={erroConfirmarSenha} /> : <></>}
+      <KeyboardAvoidingView style={{width: '100%'}} behavior="padding">
+        <TextInput style={styles.input} secureTextEntry={true} placeholder="Confirmar Senha" value={confirmarSenha} onChangeText={mudarConfirmarSenha} autoCapitalize="none" ref={(input) => {this.input8 = input}} onSubmitEditing={validarFormulario}/>
+        {erroConfirmarSenha ? <Erro erro={erroConfirmarSenha} ref={(input) => {this.input8= input}}/> : <></>}
       </KeyboardAvoidingView>
       {erroFormulario ? <Erro erro={erroFormulario} /> : <></>}
       <TouchableOpacity style={styles.botao} onPress={validarFormulario}>

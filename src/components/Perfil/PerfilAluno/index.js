@@ -8,6 +8,7 @@ import styles from "../styles";
 import Editor from "../Editor";
 import User from '../../User';
 
+
 export default function PerfilAluno() {
   const usuario = useContext(User);
   const [ modal, setModal ] = useState(false);
