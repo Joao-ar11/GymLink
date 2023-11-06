@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 export default styles = StyleSheet.create({
   container: {
     paddingTop: 70,
+    paddingBottom: 20,
     flex: 1,
     width: '100%',
     alignItems: 'center',
@@ -10,7 +11,7 @@ export default styles = StyleSheet.create({
   },
 
   title: {
-    marginBottom: 75,
+    marginBottom: 70,
     fontSize: 24,
     fontWeight: '500'
   },
@@ -24,7 +25,7 @@ export default styles = StyleSheet.create({
   containerDividido: {
     marginBottom: 5,
     width: "100%",
-    height: 45,
+    height: 'auto',
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -112,5 +113,11 @@ export default styles = StyleSheet.create({
     fontWeight: '900',
     color: "#382D85",
     textDecorationLine: "underline"
+  },
+
+  carregando: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5
   }
 })

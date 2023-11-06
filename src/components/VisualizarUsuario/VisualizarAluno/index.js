@@ -27,10 +27,6 @@ export default function VisualilzarAluno() {
           <Text style={styles.atributoNome}>Altura</Text>
           <Text style={styles.atributoValor}>1,72m</Text>
         </View>
-        <View style={styles.atributoContainer}>
-          <Text style={styles.atributoNome}>Tipo fisico</Text>
-          <Text style={{...styles.atributoValor, marginTop: 14,fontSize: 15}}>Sedentário</Text>
-        </View>
       </View>
       <View style={styles.graficoContainer}>
         <Image style={styles.grafico} source={require('../../../../assets/grafico.jpg')}/>

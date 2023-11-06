@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import styles from "../styles";
+import User from '../../User';
 
 export default function InicioAluno(props) {
+  const usuario = useContext(User)
 
   function irParaPersonais() {
     props.navigation.navigate('TabVinculos');
@@ -19,11 +22,11 @@ export default function InicioAluno(props) {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.fotoContainer}>
-          <Image style={styles.foto} source={require('../../../../assets/user.png')}/>
+          <Image style={styles.foto} source={{ uri: usuario.user.foto }}/>
         </View>
         <View style={styles.textoContainer}>
           <Text style={styles.texto}>Bem vindo</Text>
-          <Text style={styles.nomeUsuario}>Usuario</Text>
+          <Text style={styles.nomeUsuario}>{usuario.user.nome}</Text>
         </View>
       </View>
       <View style={styles.graficoContainer}>

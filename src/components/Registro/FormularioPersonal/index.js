@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView } from "react-native";
 import styles from '../styles';
 
-export default function FormularioPersonal() {
+export default function FormularioPersonal(props) {
   const [ nome, setNome ] = useState('');
   const [ data, setData ] = useState('');
   const [ displayData, setDisplaydata ] = useState('');
@@ -72,7 +72,7 @@ export default function FormularioPersonal() {
       </TouchableOpacity>
       <View style={styles.loginContainer}>
         <Text style={styles.textoConta}>Já possui uma conta?</Text>
-        <TouchableOpacity><Text style={styles.link}>Clique aqui!</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Login')}><Text style={styles.link}>Clique aqui!</Text></TouchableOpacity>
       </View>
     </View>
   );

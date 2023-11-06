@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Logo from "../../../../components/Header/Logo";
-import TelaInicial from "../../../../components/TelaInicial";
-import Rotinas from "../../../../components/Rotinas";
+import Logo from "../../../components/Header/Logo";
+import TelaInicial from "../../../components/TelaInicial";
+import Rotinas from "../../../components/Rotinas";
 
 const Stack = createNativeStackNavigator();
 
@@ -11,7 +11,7 @@ export default function Inicio() {
       headerTitle: Logo,
       headerTitleAlign: 'center',
       headerBackTitleVisible: false,
-      headerBackImageSource: require('../../../../../assets/voltar.png')
+      headerBackImageSource: require('../../../../assets/voltar.png')
     }}>
       <Stack.Screen 
         name='TelaInicial'

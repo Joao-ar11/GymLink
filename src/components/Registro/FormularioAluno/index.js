@@ -1,19 +1,34 @@
-import { useState } from "react";
-import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Image, Pressable } from "react-native";
+import { useState, useContext } from "react";
+import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView } from "react-native";
+import { auth, db } from "../../../firebase/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Timestamp, addDoc, collection, getDoc } from "firebase/firestore";
+import Erro from '../Erro';
 import styles from "../styles";
+import User from "../../User";
 
-export default function FormularioAluno() {
+export default function FormularioAluno(props) {
   const [ nome, setNome ] = useState('');
   const [ data, setData ] = useState('');
   const [ displayData, setDisplaydata ] = useState('');
   const [ peso, setPeso ] = useState('');
   const [ altura, setAltura ] = useState('');
-  const [ fisico, setFisico ] = useState('Tipo físico');
-  const [ modal, setModal ] = useState(false);
   const [ telefone, setTelefone ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ senha, setSenha ] = useState('');
   const [ confirmarSenha, setConfirmarSenha ] = useState('');
+  const [ erroNome, setErroNome ] = useState('');
+  const [ erroData, setErroData ] = useState('');
+  const [ erroPeso, setErroPeso ] = useState('');
+  const [ erroAltura, setErroAltura ] = useState('');
+  const [ erroTelefone, setErroTelefone ] = useState('');
+  const [ erroEmail, setErroEmail ] = useState('');
+  const [ erroSenha, setErroSenha ] = useState('');
+  const [ erroConfirmarSenha, setErroConfirmarSenha ] = useState('');  
+  const [ erroFormulario, setErroFormulario ] = useState('');
+
+  const colecao = collection(db, 'users');
+  const usuario = useContext(User);
 
   function mudarNome(input) {
     setNome(input);
@@ -33,8 +48,8 @@ export default function FormularioAluno() {
     }
 
     setDisplaydata(dataFormatada);
-    const dataValor = dataFormatada.split('/').reverse().join('-');
-    setData(new Date(dataValor));
+    const dataValor = new Date(dataFormatada.split('/').reverse().join('-'));
+    setData(dataValor);
   }
 
   function mudarPeso(input) {
@@ -65,15 +80,6 @@ export default function FormularioAluno() {
     }
   }
 
-  function abrirModal() {
-    setModal(!modal);
-  }
-
-  function mudarFisico(novoFisico) {
-    setFisico(novoFisico);
-    setModal(false);
-  }
-
   function mudarTelefone(input) {
     setTelefone(input);
   }
@@ -87,43 +93,112 @@ export default function FormularioAluno() {
   }
 
   function mudarConfirmarSenha(input) {
-    {setConfirmarSenha(input);}
+    setConfirmarSenha(input);
+  }
+
+  function validarFormulario() {
+    let erro;
+
+    if (nome.length < 4) {
+      setErroNome('Nome muito pequeno');
+      erro = 'Campos preenchidos incorretamente';
+    }
+    if (altura.length < 1) {
+      setErroAltura('Campo vazio');
+      erro = 'Campos preenchidos incorretamente';
+    }
+    if (peso.length < 1) {
+      setErroPeso('Campo vazio');
+      erro = 'Campos preenchidos incorretamente';
+    }
+    if (displayData.length < 1) {
+      setErroData('Campo vazio');
+      erro = 'Campos preenchidos incorretamente';
+    }
+    if (telefone.length < 1) {
+      setErroTelefone('Campo vazio');
+      erro = 'Campos preenchidos incorretamente';
+    }
+    if (email.length < 1) {
+      setErroEmail('Campo vazio');
+      erro = 'Campos preenchidos incorretamente';
+    }
+    if (senha.length < 8) {
+      setErroSenha('Senha precisa ser maior que 8 caracteres');
+      erro = 'Campos preenchidos incorretamente';
+    }
+    if (senha !== confirmarSenha) {
+      setErroConfirmarSenha('Senhas não são iguais');
+      erro = 'Campos preenchidos incorretamente';
+    }
+
+    if(!erro) {
+      enviarFormulario();
+    } else {
+      setErroFormulario(erro);
+    }
+  }
+
+  async function enviarFormulario() {
+    props.carregar(true);
+    createUserWithEmailAndPassword(auth, email, senha)
+    .then((Usercredential) =>
+      {
+        return addDoc(colecao, {
+          nome,
+          altura,
+          peso,
+          telefone,
+          email,
+          descricao: '',
+          foto: 'https://firebasestorage.googleapis.com/v0/b/gym-link-4e8d0.appspot.com/o/usuarios%2Fuser.png?alt=media&token=e6c502a8-3cb3-4364-a184-ad3ab6fb4d71',
+          data: Timestamp.fromDate(data),
+          uid : Usercredential.user.uid
+        });
+      }
+    )
+    .then(doc => getDoc(doc))
+    .then(dados => usuario.setUser({...dados.data(), idDocumento: dados.id}))
+    .catch((erro) => {
+      props.carregar(false);
+      setErroFormulario(erro.message);
+      if (auth.currentUser) {
+        auth.currentUser.delete();
+      }
+    });
   }
 
   return (
     <View style={styles.formulario}>
       <TextInput style={styles.input} placeholder='Nome Completo' value={nome} onChangeText={mudarNome}/>
+      { erroNome ? <Erro erro={erroNome} /> : <></>}
       <View style={styles.containerDividido}>
-        <TextInput style={ {...styles.input, ...styles.inputMeio }} keyboardType="numeric" placeholder="Data de nascimento" value={displayData} maxLength={10} onChangeText={mudarData}/>
+        <TextInput selection={{start: altura.length - 2, end: altura.length - 2}} style={ {...styles.input, ...styles.inputMeio }} keyboardType="numeric" placeholder="Altura" value={altura} maxLength={6} onChangeText={mudarAltura}/>
         <TextInput selection={{start: peso.length - 3, end: peso.length - 3}} style={ {...styles.input, ...styles.inputMeio }} keyboardType="numeric" placeholder="Peso" value={peso} maxLength={9} onChangeText={mudarPeso}/>
       </View>
       <View style={styles.containerDividido}>
-        <TextInput selection={{start: altura.length - 2, end: altura.length - 2}} style={ {...styles.input, ...styles.inputMeio }} keyboardType="numeric" placeholder="Altura" value={altura} maxLength={6} onChangeText={mudarAltura}/>
-        <Pressable style={{ ...styles.input, ...styles.inputMeio, ...styles.selectContainer}}  onPress={abrirModal}>
-          { modal ? <View style={styles.select}>
-            <Text style={{ color: '#8C8C8C', maxWidth: 100, paddingLeft: 10 }}>Escolha um tipo físico:</Text>
-            <TouchableOpacity style={styles.option} onPress={() => mudarFisico('Abaixo do peso')}><Text>Abaixo do peso</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.option} onPress={() => mudarFisico('Saudável')}><Text>Saudável</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.option} onPress={() => mudarFisico('Acima do peso')}><Text>Acima do peso</Text></TouchableOpacity>
-            <TouchableOpacity style={{...styles.option, borderBottomLeftRadius: 10, borderBottomEndRadius: 10}} onPress={() => mudarFisico('Obeso')}><Text>Obeso</Text></TouchableOpacity>
-          </View> : <Text style={{ marginBottom: 'auto', paddingLeft: 10}}>{fisico}</Text>}
-          <TouchableOpacity style={styles.expand} onPress={abrirModal}>
-            <Image source={ require('../../../../assets/expand.png') }/>
-          </TouchableOpacity>
-        </Pressable>
+        {erroAltura ? <Erro erro={erroAltura} /> : <View/>}
+        {erroPeso ? <Erro erro={erroPeso} /> : <View/>}
       </View>
-      <TextInput style={styles.input} placeholder="Telefone" value={telefone} onChangeText={mudarTelefone}/>
-      <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={mudarEmail}/>
-      <TextInput style={styles.input} secureTextEntry={true} placeholder="Senha" value={senha} onChangeText={mudarSenha}/>
+      <TextInput style={styles.input} keyboardType="numeric" placeholder="Data de nascimento" value={displayData} maxLength={10} onChangeText={mudarData}/>
+      {erroData ? <Erro erro={erroData} /> : <></>}
+      <TextInput style={styles.input} placeholder="Telefone" value={telefone} onChangeText={mudarTelefone} keyboardType="phone-pad"/>
+      {erroTelefone ? <Erro erro={erroTelefone} /> : <></>}
+      <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={mudarEmail} keyboardType="email-address" autoCapitalize="none"/>
+      {erroEmail ? <Erro erro={erroEmail} /> : <></>}
+      <TextInput style={styles.input} secureTextEntry={true} placeholder="Senha" value={senha} onChangeText={mudarSenha} autoCapitalize="none"/>
+      {erroSenha ? <Erro erro={erroSenha} /> : <></>}
       <KeyboardAvoidingView style={{width: '100%'}}behavior="padding">
-        <TextInput style={styles.input} secureTextEntry={true} placeholder="Confirmar Senha" value={confirmarSenha} onChangeText={mudarConfirmarSenha}/>
+        <TextInput style={styles.input} secureTextEntry={true} placeholder="Confirmar Senha" value={confirmarSenha} onChangeText={mudarConfirmarSenha} autoCapitalize="none"/>
+        {erroConfirmarSenha ? <Erro erro={erroConfirmarSenha} /> : <></>}
       </KeyboardAvoidingView>
-      <TouchableOpacity style={styles.botao}>
+      {erroFormulario ? <Erro erro={erroFormulario} /> : <></>}
+      <TouchableOpacity style={styles.botao} onPress={validarFormulario}>
         <Text style={styles.botaoTexto}>Registrar</Text>
       </TouchableOpacity>
       <View style={styles.loginContainer}>
         <Text style={styles.textoConta}>Já possui uma conta?</Text>
-        <TouchableOpacity><Text style={styles.link}>Clique aqui!</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Login')}><Text style={styles.link}>Clique aqui!</Text></TouchableOpacity>
       </View>
     </View>
   );

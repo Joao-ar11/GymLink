@@ -20,7 +20,7 @@ export default function NavBar({ navigation }) {
         <Image style={styles.icone} source={require('../../../assets/treinador-pessoal.png')}/>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.botao}>
+      <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('TabUsuario')}>
         <Image style={styles.icone} source={require('../../../assets/perfil.png')}/>
       </TouchableOpacity>
     </View>

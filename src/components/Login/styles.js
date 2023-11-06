@@ -81,5 +81,11 @@ export default styles = StyleSheet.create({
     fontWeight: '900',
     color: "#382D85",
     textDecorationLine: "underline"
+  },
+
+  carregando: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5
   }
 });
