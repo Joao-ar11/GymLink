@@ -172,6 +172,8 @@ export default function FormularioAluno(props) {
           telefone,
           email,
           descricao: '',
+          vinculos: [],
+          tipo: 'aluno',
           foto: linkFoto,
           data: Timestamp.fromDate(data),
           uid : Usercredential.user.uid

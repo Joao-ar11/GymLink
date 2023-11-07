@@ -39,3 +39,6 @@ Crédito dos ícones:
 
 ![Refresh](https://img.icons8.com/ios-glyphs/90/refresh--v1.png "Refresh")
 [Refresh](https://icons8.com/icon/59872/refreshRefresh) icon by [Icons8](https://icons8.com)
+
+![Halteres com presilha](https://img.icons8.com/ios/50/curls-with-dumbbells.png "Halteres com presilha")
+[Halteres com presilha](https://icons8.com/icon/7657/halteres-com-presilha) icon by [Icons8](https://icons8.com)

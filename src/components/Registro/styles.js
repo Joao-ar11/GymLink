@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 export default styles = StyleSheet.create({
   container: {
-    paddingTop: 70,
     paddingBottom: 20,
     flex: 1,
     width: '100%',
@@ -11,6 +10,7 @@ export default styles = StyleSheet.create({
   },
 
   title: {
+    marginTop: 70,
     marginBottom: 70,
     fontSize: 24,
     fontWeight: '500'

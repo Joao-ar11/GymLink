@@ -60,7 +60,7 @@ export default function Login({ navigation }) {
       <TouchableOpacity style={styles.botaoLogin} onPress={logar}><Text style={styles.textoLogin}>Login</Text></TouchableOpacity>
       <View style={styles.cadastroContainer}>
         <Text style={styles.textoConta}>Não possui uma conta?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Registro')}><Text style={styles.link}>Cadastre-se!</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Selecao')}><Text style={styles.link}>Cadastre-se!</Text></TouchableOpacity>
       </View>
       <ActivityIndicator animating={carregando} style={styles.carregando} color='#4736C6' size='large'/>
     </ScrollView>
