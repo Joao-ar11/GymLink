@@ -10,7 +10,7 @@ export default function Registro({ route, navigation }) {
   return (
     <ScrollView style={{backgroundColor: '#FFFFFF'}} keyboardShouldPersistTaps={'never'}>
       <View style={styles.container}>
-      <TouchableOpacity style={{ position: 'absolute', top: 30, left: 10, idth: 30, height: 30 }} onPress={() => navigation.pop()}>
+      <TouchableOpacity style={{ position: 'absolute', top: 30, left: 10, width: 30, height: 30 }} onPress={() => navigation.pop()}>
         <Image source={require('../../../assets/voltar.png')} style={{ width: 30, height: 30}}/>
       </TouchableOpacity>
         <Text style={styles.title}>Registre-se</Text>

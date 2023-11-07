@@ -19,6 +19,9 @@ export default function VisualilzarPersonal(props) {
       </View>
       <Text style={styles.nome}>{props.item.nome}</Text>
       <Text style={styles.descricao}>{props.item.descricao}</Text>
+      <TouchableOpacity style={styles.solicitar}>
+        <Text style={styles.solicitarTexto}>Solicitar Vínculo</Text>
+      </TouchableOpacity>
       { modalDenuncia ?
           <Denuncia id={props.item.id} tipo={props.item.tipo} fecharModal={modal}/>
         : <></>

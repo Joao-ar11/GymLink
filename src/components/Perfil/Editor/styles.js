@@ -4,7 +4,7 @@ export default styles = StyleSheet.create({
   modal: {
     padding: 15,
     width: 275,
-    height: 210,
+    height: 'auto',
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
     alignItems: 'center',

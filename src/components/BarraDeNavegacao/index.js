@@ -1,9 +1,27 @@
-import { View, TouchableOpacity, Image } from "react-native";
+import { View, TouchableOpacity, Image, Keyboard } from "react-native";
 import styles from "./styles";
+import { useEffect, useState } from "react";
 
 export default function NavBar({ navigation }) {
+  const [ visivel, setVisivel ] = useState(true);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+      setVisivel(false);
+    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      setVisivel(true);
+    });
+
+    return () => {
+        showSubscription.remove();
+        hideSubscription.remove();
+    };
+  }, [])
+
   return(
-    <View style={styles.barra}>
+    <>
+    { visivel ? <View style={styles.barra}>
       <TouchableOpacity style={styles.botao}>
         <Image style={styles.icone} source={require('../../../assets/bell.png')}/>
       </TouchableOpacity>
@@ -24,5 +42,9 @@ export default function NavBar({ navigation }) {
         <Image style={styles.icone} source={require('../../../assets/perfil.png')}/>
       </TouchableOpacity>
     </View>
+    :
+    <></>
+    }
+    </>
   );
 }

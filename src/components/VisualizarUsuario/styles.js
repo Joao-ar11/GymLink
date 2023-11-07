@@ -87,5 +87,15 @@ export default styles = StyleSheet.create({
   grafico: {
     width: 350,
     height: 150
+  },
+
+  solicitar: {
+    marginTop: 15,
+    width: 120,
+    height: 35,
+    backgroundColor: '#D4FCFF',
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });

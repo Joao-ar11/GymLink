@@ -11,7 +11,7 @@ const Tab = createBottomTabNavigator();
 export default function Main() {
   return (
     <NavigationContainer>
-      <Tab.Navigator tabBar={BarraDeNavegacao} screenOptions={{tabBarHideOnKeyboard: true}}>
+      <Tab.Navigator tabBar={({ navigation }) => <BarraDeNavegacao navigation={navigation}/>} screenOptions={{tabBarHideOnKeyboard: true, tabBarHideOnKeyboard: true}}>
         <Tab.Screen name='Inicio'
           component={Inicio}
           options={{headerShown: false}}
