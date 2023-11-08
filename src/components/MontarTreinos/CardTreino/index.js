@@ -6,8 +6,8 @@ export default function CardTreino(props) {
 
   function selecionarTreino() {
     props.navigation.navigate({
-      name: 'Rotinas',
-      screen: 'Rotinas',
+      name: 'Montar',
+      screen: 'Montar',
       params: {
         id: props.item.uid,
         nome: props.item.nome
@@ -30,7 +30,7 @@ export default function CardTreino(props) {
         </View>
         <View style={styles.nomeContainer}>
           <Text style={styles.nomeInstrutor}>{props.item.nome}</Text>
-          <Text style={styles.nomeInstrutor}>Instrutor</Text>
+          <Text style={styles.nomeInstrutor}>Aluno</Text>
         </View>
         <TouchableOpacity style={styles.botao} onPress={selecionarTreino}><Text style={styles.botaoTexto}>Iniciar</Text></TouchableOpacity>
       </View>

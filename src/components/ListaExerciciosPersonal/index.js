@@ -3,22 +3,18 @@ import styles from "./styles";
 import Card from "./Card";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase/firebase";
-import { getDocs, query, collection, where } from "firebase/firestore";
+import { getDocs, collection, query, limit } from "firebase/firestore";
 
-export default function TrocaExercicios({ route, navigation }){
+export default function ListaExerciciosPersonal({ route, navigation }){
   const [ exercicios, setExercicios] = useState([]); 
-
 
   useEffect(() => {
     const novos = [];
     const c = collection(db, 'exercicios');
-    const q = query(c, where('categoria', '==', route.params.categoria));
-    getDocs(q)
+    getDocs(c)
     .then((docs) => {
       docs.forEach((doc) => {
-        if (doc.data().nome !== route.params.nome) {
-          novos.push({...doc.data(), id: doc.id});
-        }
+        novos.push({...doc.data(), id: doc.id});
       })
       setExercicios(novos);
     })
@@ -27,13 +23,12 @@ export default function TrocaExercicios({ route, navigation }){
 
   return(
     <View style={styles.container}>
-      <Text style={styles.titulo}>Troca de Exercícios</Text>
-      <Text style={styles.sugerido}>Sugeridos</Text>
+      <Text style={styles.titulo}>Selecione um Exercício</Text>
       <FlatList
         data={exercicios}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.lista}
-        renderItem={({ item }) => <Card item={item} documento={route.params.ref}  navigation={navigation}/>}
+        renderItem={({ item }) => <Card item={item} lista={route.params.listaExercicios} setLista={route.params.setListaExercicios} navigation={navigation}/>}
         extraData={exercicios}
       />
     </View>

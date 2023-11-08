@@ -6,10 +6,16 @@ import Treinos from "../Stacks/Treinos";
 import Vinculos from "../Stacks/Vinculos";
 import Usuario from "../Stacks/Usuario";
 import TabNotificacoes from "../Stacks/TabNotificacoes";
+import TabMontar from "../Stacks/TabMontar";
+import User from "../../components/User";
+import { useContext } from "react";
 
 const Tab = createBottomTabNavigator();
 
 export default function Main() {
+  const usuario = useContext(User);
+  const tipo = usuario.user.tipo;
+
   return (
     <NavigationContainer>
       <Tab.Navigator tabBar={({ navigation }) => <BarraDeNavegacao navigation={navigation}/>} screenOptions={{tabBarHideOnKeyboard: true, tabBarHideOnKeyboard: true}}>
@@ -17,8 +23,8 @@ export default function Main() {
           component={Inicio}
           options={{headerShown: false}}
         />
-        <Tab.Screen name='TabTreinos'
-          component={Treinos}
+        <Tab.Screen name={tipo === 'aluno' ? 'TabTreinos' : 'TabMontar'}
+          component={tipo === 'aluno' ? Treinos : TabMontar}
           options={{headerShown: false}}
         />
         <Tab.Screen name='TabVinculos'

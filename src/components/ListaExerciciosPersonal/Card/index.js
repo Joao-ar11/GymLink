@@ -6,11 +6,9 @@ import styles from "./styles";
 
 export default function Card(props) {
 
-  function mudar() {
-    const d = doc(db, props.documento);
-    setDoc(d, {nome: props.item.nome}, {merge: true})
-    .then(() => {props.navigation.pop(); props.navigation.pop()})
-    .catch((error) => console.log(error))
+  function adicionar() {
+    props.setLista([...props.lista, {...props.item, quantidade: 10, sets: 10, concluido: false}]);
+    props.navigation.pop();
   }
 
   return(
@@ -19,7 +17,7 @@ export default function Card(props) {
         <Image style={styles.image} source={{uri: props.item.foto}}/>
       </View>
       <Text style={styles.nome}>{props.item.nome}</Text>
-      <TouchableOpacity  style={styles.selecionar} onPress={mudar}>
+      <TouchableOpacity  style={styles.selecionar} onPress={adicionar}>
         <Text>Selecionar</Text>
       </TouchableOpacity>
     </TouchableOpacity>

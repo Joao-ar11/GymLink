@@ -32,6 +32,7 @@ export default styles = StyleSheet.create({
   },
 
   nome: {
+    width: 150,
     marginLeft: 15,
     fontSize: 14,
     fontWeight: '500'

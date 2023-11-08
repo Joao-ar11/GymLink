@@ -4,10 +4,14 @@ import TreinosMontados from "../../../components/TreinosMontados";
 import Rotinas from "../../../components/Rotinas";
 import ExerciciosAluno from "../../../components/ExerciciosAluno";
 import TrocaExercicios from "../../../components/TrocaExercicios";
+import User from "../../../components/User";
+import { useContext } from "react";
 
 const Stack = createNativeStackNavigator()
 
 export default function Treinos() {
+
+  const usuario = useContext(User);
 
   return (
       <Stack.Navigator screenOptions={{

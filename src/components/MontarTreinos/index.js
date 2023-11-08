@@ -6,7 +6,7 @@ import CardTreino from './CardTreino';
 import User from '../User';
 import styles from './styles';
 
-export default function TreinosMontados({ route, navigation }) {
+export default function MontarTreinos({ route, navigation }) {
   const [ treinos, setTreinos ] = useState([]);
   const usuario = useContext(User);
 
@@ -26,7 +26,7 @@ export default function TreinosMontados({ route, navigation }) {
 
   return(
     <View style={styles.container}>
-      <Text style={styles.titulo}>Treinos montados</Text>
+      <Text style={styles.titulo}>Selecione um(a) aluno(a)</Text>
       { treinos.length > 0 ?
         <FlatList
           style={styles.lista}

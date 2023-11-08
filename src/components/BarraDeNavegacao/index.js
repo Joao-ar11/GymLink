@@ -6,6 +6,7 @@ import User from "../User";
 export default function NavBar({ navigation }) {
   const [ visivel, setVisivel ] = useState(true);
   const usuario = useContext(User);
+  const tipo = usuario.user.tipo === 'aluno' ? 'TabTreinos' : 'TabMontar';
   
   let numero = 0;
   
@@ -40,7 +41,7 @@ export default function NavBar({ navigation }) {
         {notificacoes > 0 ? <View style={styles.notificacao}><Text style={styles.notificacaoNumero}>{notificacoes}</Text></View> : <></>}
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('TabTreinos')}>
+      <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate(tipo)}>
         <Image style={styles.icone} source={require('../../../assets/dumbbell.png')}/>
       </TouchableOpacity>
 

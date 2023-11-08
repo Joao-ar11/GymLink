@@ -7,7 +7,8 @@ import { setDoc, doc } from "firebase/firestore";
 
 export default function Notificacoes({ navigation }) {
   const usuario = useContext(User);
-  const notificacoes = usuario.notificacoes;
+  const notificacoes = [...usuario.notificacoes];
+  notificacoes.reverse();
 
   function verUsuario(uid, idVinculo) {
     if (usuario.user.tipo === 'personal') {

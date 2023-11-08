@@ -18,7 +18,7 @@ export default function InicioPersonal(props) {
         </View>
       </View>
       <View style={{...styles.botoesContainer, justifyContent: 'center', gap: 50}}>
-        <TouchableOpacity style={styles.botao}><Text style={styles.botaoTexto}>Alunos vinculados</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.botao} onPress={() => props.navigation.navigate('TabVinculos')}><Text style={styles.botaoTexto}>Alunos vinculados</Text></TouchableOpacity>
         <TouchableOpacity style={styles.botao}><Text style={styles.botaoTexto}>Montar treinos</Text></TouchableOpacity>
       </View>
     </View>

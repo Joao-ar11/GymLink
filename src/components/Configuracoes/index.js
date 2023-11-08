@@ -39,11 +39,6 @@ const Configuracoes = () => {
         <TouchableOpacity
           style={styles.settingLink}
         >
-          <Text style={styles.settingLinkText}>Termos de Serviço</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.settingLink}
-        >
           <Text style={styles.settingLinkText}>Ajuda e Suporte</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.logoutContainer} onPress={() => {signOut(auth); usuario.setUser(null)}}>

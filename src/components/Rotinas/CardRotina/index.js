@@ -16,12 +16,11 @@ export default function CardRotina(props) {
   return (
     <TouchableOpacity onPress={selecionarRotina} style={styles.container}>
       <View>
-        <Image style={styles.foto} source={{uri: props.item.foto}}/>
+        <Image style={styles.foto} source={require('../../../../assets/dumbbell.png')}/>
       </View>
       <View style={styles.textoContainer}>
-        <Text style={styles.nome}>{props.item.nome}</Text>
-        <Text style={styles.instrutor}>{props.item.instrutor}</Text>
-        <Text style={styles.data}>{props.item.data}</Text>
+        <Text style={styles.instrutor}>{props.item.nomeP}</Text>
+        <Text style={styles.data}>{props.item.data.toDate().toLocaleString('pt-BR')}</Text>
       </View>
       <TouchableOpacity style={styles.menuContainer}>
         <Image style={styles.menuFoto} source={require('../../../../assets/pontos-verticais.png')}/>
