@@ -31,6 +31,7 @@ export default styles = StyleSheet.create({
   },
 
   containerTexto: {
+    marginRight: 30,
     width: 200
   },
 
@@ -42,13 +43,6 @@ export default styles = StyleSheet.create({
   descricao: {
     fontSize: 10,
     fontWeight: '500'
-  },
-
-  botaoAvaliacao: {
-    marginLeft: 'auto',
-    width: 24,
-    height: 24,
-    overflow: 'hidden'
   },
 
   fotoAvaliacao: {

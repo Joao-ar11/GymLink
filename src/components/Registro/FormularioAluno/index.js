@@ -172,7 +172,7 @@ export default function FormularioAluno(props) {
           telefone,
           email,
           descricao: '',
-          vinculos: [],
+          solicitcoes: [],
           tipo: 'aluno',
           foto: linkFoto,
           data: Timestamp.fromDate(data),

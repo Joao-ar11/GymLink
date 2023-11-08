@@ -1,9 +1,22 @@
-import { View, TouchableOpacity, Image, Keyboard } from "react-native";
+import { View, TouchableOpacity, Image, Keyboard, Text } from "react-native";
 import styles from "./styles";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import User from "../User";
 
 export default function NavBar({ navigation }) {
   const [ visivel, setVisivel ] = useState(true);
+  const usuario = useContext(User);
+  
+  let numero = 0;
+  
+  usuario.notificacoes.forEach(element => {
+    if (!element.visualizado) {
+      numero += 1;
+    }
+  });
+
+  const [ notificacoes, setNotificacoes ] = useState(numero);
+
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
@@ -22,8 +35,9 @@ export default function NavBar({ navigation }) {
   return(
     <>
     { visivel ? <View style={styles.barra}>
-      <TouchableOpacity style={styles.botao}>
+      <TouchableOpacity style={styles.botao} onPress={() => {setNotificacoes(0); navigation.navigate('TabNotificacoes')}}>
         <Image style={styles.icone} source={require('../../../assets/bell.png')}/>
+        {notificacoes > 0 ? <View style={styles.notificacao}><Text style={styles.notificacaoNumero}>{notificacoes}</Text></View> : <></>}
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('TabTreinos')}>

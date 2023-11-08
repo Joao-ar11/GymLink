@@ -29,9 +29,6 @@ export default function InicioAluno(props) {
           <Text style={styles.nomeUsuario}>{usuario.user.nome}</Text>
         </View>
       </View>
-      <View style={styles.graficoContainer}>
-        <Image style={styles.grafico} source={require('../../../../assets/grafico.jpg')}/>
-      </View>
       <View style={styles.botoesContainer}>
         <TouchableOpacity onPress={irParaHistorico} style={styles.botao}><Text style={styles.botaoTexto}>Histórico de treinos</Text></TouchableOpacity>
         <TouchableOpacity onPress={irParaPersonais} style={styles.botao}><Text style={styles.botaoTexto}>Personais vinculados</Text></TouchableOpacity>

@@ -45,6 +45,23 @@ export default styles = StyleSheet.create({
     shadowOpacity: 0.25,
     elevation: 15,
     backgroundColor : "#FFFFFF"
-  }
+  },
 
+  notificacao: {
+    position: 'absolute',
+    width: 18,
+    height: 18,
+    top: -10,
+    right: 15,
+    backgroundColor: 'red',
+    borderRadius: 9,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  notificacaoNumero: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '700'
+  }
 });

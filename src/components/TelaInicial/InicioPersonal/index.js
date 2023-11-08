@@ -17,11 +17,7 @@ export default function InicioPersonal(props) {
           <Text style={styles.nomeUsuario}>{usuario.user?.nome}</Text>
         </View>
       </View>
-      <View style={styles.graficoContainer}>
-        <Image style={styles.grafico} source={require('../../../../assets/grafico.jpg')}/>
-      </View>
-      <View style={styles.botoesContainer}>
-        <TouchableOpacity style={styles.botao}><Text style={styles.botaoTexto}>Buscar alunos</Text></TouchableOpacity>
+      <View style={{...styles.botoesContainer, justifyContent: 'center', gap: 50}}>
         <TouchableOpacity style={styles.botao}><Text style={styles.botaoTexto}>Alunos vinculados</Text></TouchableOpacity>
         <TouchableOpacity style={styles.botao}><Text style={styles.botaoTexto}>Montar treinos</Text></TouchableOpacity>
       </View>

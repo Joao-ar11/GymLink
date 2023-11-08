@@ -78,16 +78,38 @@ const styles = StyleSheet.create({
 async function carregarDadosUsuario() {
   const uid = auth.currentUser.uid;
   const colecao = collection(db, 'users');
-  const q = query(colecao, where('uid', '==', uid))
+  let q = query(colecao, where('uid', '==', uid))
   const docs = await getDocs(q);
   let usuario;
   docs.forEach((doc) => {usuario = doc.data()});
+  const tipo = usuario.tipo;
+  const colecaoV = collection(db, 'vinculos');
+  q = query(colecaoV, where(tipo === 'aluno' ? 'aluno' : 'personal', '==', usuario.uid), where('estado', '==', 'concluido'));
+  const docsV = await getDocs(q);
+  const vinculos = [];
+  if (tipo === 'aluno') {
+    docsV.forEach((doc) => {vinculos.push(doc.data().personal);});
+  } else {
+    docsV.forEach((doc) => {vinculos.push(doc.data().aluno);});
+  }
+  usuario.vinculos = [...vinculos];
   return usuario;
+}
+
+async function carregarNotificacoes() {
+  const uid = auth.currentUser.uid;
+  const c = collection(db, 'notificacoes');
+  const q = query(c, where('uid', '==', uid));
+  const docs = await getDocs(q);
+  const notificacoes = [];
+  docs.forEach((doc) => notificacoes.push({...doc.data(), id: doc.id}));
+  return notificacoes;
 }
 
 export default function Index() {
   const [ carregando, setCarregando ] = useState(true);
-  const [ user, setUser ] = useState(null)
+  const [ user, setUser ] = useState(null);
+  const [ notificacoes, setNotificacoes ] = useState([]);
   const netInfo = useNetInfo();
   
   useEffect(() => onAuthStateChanged(auth, () => {
@@ -95,6 +117,8 @@ export default function Index() {
       setCarregando(true);
       carregarDadosUsuario()
       .then((dados) => setUser(dados))
+      .then(() => carregarNotificacoes())
+      .then((n) => setNotificacoes(n))
       .then(() => setCarregando(false))
       .catch(() => setCarregando(false));
     } else {
@@ -104,7 +128,7 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <User.Provider value={{ user, setUser }}>
+      <User.Provider value={{ user, setUser, notificacoes, setNotificacoes }}>
         { !netInfo.isConnected ?
           <View style={styles.containerConexao}>
             <View style={styles.modalConexao}>

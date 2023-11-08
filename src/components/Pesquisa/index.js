@@ -3,11 +3,12 @@ import { Pressable, FlatList, TextInput, TouchableOpacity, Keyboard, View, Image
 import { db } from "../../firebase/firebase";
 import { getDocs, query, where, collection, limit } from "firebase/firestore";
 import styles from "./styles";
-import CardPersonal from '../CardPersonal';
+import CardUsuario from '../CardUsuario';
 
 export default function Pesquisa({ navigation }) {
 
   const [ pesquisa, setPesquisa ] = useState(false);
+  const [ pesquisado, setPesquisado ] = useState(false);
   const [ input, setInput ] = useState('');
   const [personais, setPersonais] = useState([]);
 
@@ -19,7 +20,7 @@ export default function Pesquisa({ navigation }) {
       const q1 = query(c, where('tipo', '==', 'personal'), where('nome', '>=', input), where('nome', '<=', input + '\uf8ff'));
       getDocs(q1)
       .then((docs) => {
-        docs.forEach((doc) => {novosPersonais.push({...doc.data()}); resultados.push(doc.data().uid)})
+        docs.forEach((doc) => {novosPersonais.push({...doc.data()}); resultados.push(doc.data().uid), console.log(doc.data())})
       })
       .then(() => {
         const q2 = query(c, where('tipo', '==', 'personal'), where('descricao', '>=', input), where('descricao', '<=', input + '\uf8ff'));
@@ -35,8 +36,10 @@ export default function Pesquisa({ navigation }) {
         .catch((error) => new Promise.reject(error));
       })
       .then(() => setPersonais(novosPersonais))
+      .then(() => setPesquisado(true))
+      .then(() => setPesquisa(false))
       .catch((error) => console.log(error))
-    } else {
+    } else if (!pesquisado) {
       const q = query(c, where('tipo', '==', 'personal'), limit(20));
       getDocs(q)
       .then((docs) => {
@@ -61,7 +64,7 @@ export default function Pesquisa({ navigation }) {
         extraData={personais}
         keyExtractor={(item) => item.uid}
         contentContainerStyle={styles.lista}
-        renderItem={({ item }) => <CardPersonal item={item} navigation={navigation}/>}
+        renderItem={({ item }) => <CardUsuario item={item} navigation={navigation}/>}
       />
     </Pressable>
   );

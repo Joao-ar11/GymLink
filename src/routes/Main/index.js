@@ -5,6 +5,7 @@ import Inicio from "../Stacks/Inicio";
 import Treinos from "../Stacks/Treinos";
 import Vinculos from "../Stacks/Vinculos";
 import Usuario from "../Stacks/Usuario";
+import TabNotificacoes from "../Stacks/TabNotificacoes";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,6 +27,10 @@ export default function Main() {
         />
         <Tab.Screen name='TabUsuario'
           component={Usuario}
+          options={{headerShown: false}}
+        />
+        <Tab.Screen name='TabNotificacoes'
+          component={TabNotificacoes}
           options={{headerShown: false}}
         />
       </Tab.Navigator>
