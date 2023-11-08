@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Switch, Pressable, Image, ActivityIndicator } from 'react-native';
 import { auth, db, storage } from '../../firebase/firebase';
-import { signOut } from 'firebase/auth';
+import { signOut, deleteUser } from 'firebase/auth';
 import { deleteObject, ref } from 'firebase/storage';
 import { deleteDoc, doc } from 'firebase/firestore';
 import User from '../User';
@@ -16,7 +16,7 @@ const Configuracoes = () => {
     if (deletar) {
       deleteObject(ref(storage, usuario.user.foto))
       .then(() => deleteDoc(doc(db, 'users', usuario.user.idDocumento)))
-      .then(() => auth.currentUser.delete())
+      .then(() => deleteUser(auth.currentUser))
       .then(() => usuario.setUser(null))
       .then(() => setDeletar(false))
       .catch((error) => {console.log(error); setDeletar(false); setModal(false)})

@@ -27,6 +27,7 @@ export default function ListaAlunos(props) {
   return (
     <>
       <Text style={{ fontSize: 16, fontWeight: '700'}}>Meus Alunos</Text>
+      {usuario.user.vinculos.length === 0 ? <Text>Você não tem alunos no momento, espere por algum pedido de vínculo</Text> : <></>}
       <FlatList 
         data={alunos}
         renderItem={({ item }) => <CardUsuario item={item} navigation={props.navigation}/>}

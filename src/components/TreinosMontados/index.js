@@ -11,17 +11,19 @@ export default function TreinosMontados({ route, navigation }) {
   const usuario = useContext(User);
 
   useEffect(() => {
-    const novos = [];
-    const c = collection(db, 'users');
-    const q = query(c, where('uid', 'in', usuario.user.vinculos));
-    getDocs(q)
-    .then((docs) => {
-      docs.forEach((item) => {
-        novos.push(item.data());
+    if (usuario.user.vinculos.length > 0){
+      const novos = [];
+      const c = collection(db, 'users');
+      const q = query(c, where('uid', 'in', usuario.user.vinculos));
+      getDocs(q)
+      .then((docs) => {
+        docs.forEach((item) => {
+          novos.push(item.data());
+        })
       })
-    })
-    .then(() => setTreinos(novos))
-    .catch((error) => console.log(error))
+      .then(() => setTreinos(novos))
+      .catch((error) => console.log(error))
+  }
   }, [usuario.user])
 
   return(

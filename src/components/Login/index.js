@@ -39,6 +39,7 @@ export default function Login({ navigation }) {
 
 
   return(
+    <View style={{flex: 1, backgroundColor: '#FFFFFF'}}>
     <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps='never'>
       <Image style={styles.logo} source={require('../../../assets/GymLinkNomeELogo.png')}/>
       <KeyboardAvoidingView style={{width: '100%', marginTop: 150}} behavior="padding">
@@ -64,5 +65,6 @@ export default function Login({ navigation }) {
       </View>
       <ActivityIndicator animating={carregando} style={styles.carregando} color='#4736C6' size='large'/>
     </ScrollView>
+    </View>
   )
 }

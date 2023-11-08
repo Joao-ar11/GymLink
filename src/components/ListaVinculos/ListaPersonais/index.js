@@ -10,17 +10,19 @@ export default function ListaPersonais(props) {
   const usuario = useContext(User);
 
   useEffect(() => {
-    const novos = [];
-    const c = collection(db, 'users');
-    const q = query(c, where('uid', 'in', usuario.user.vinculos));
-    getDocs(q)
-    .then((docs) => {
-      docs.forEach((doc) => {
-        novos.push(doc.data());
+    if (usuario.user.vinculos.length > 0){
+      const novos = [];
+      const c = collection(db, 'users');
+      const q = query(c, where('uid', 'in', usuario.user.vinculos));
+      getDocs(q)
+      .then((docs) => {
+        docs.forEach((doc) => {
+          novos.push(doc.data());
+        })
       })
-    })
-    .then(() => setPersonais([...novos]));
-  }, []);
+      .then(() => setPersonais([...novos]));
+    }
+  }, [usuario.user]);
 
   
 
